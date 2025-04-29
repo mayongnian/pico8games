@@ -11,7 +11,7 @@ function _update()
     -- TODO
     
     move_with_vector(balls[1])
-    move_with_btn(player,true,false,false)
+    move_with_btn(player,false,false,false)
     
 end
 
@@ -20,6 +20,7 @@ function _draw()
     cls()
     draw_sprite(player)
     draw_shape(balls[1])
+    draw_border()
 end
 
 

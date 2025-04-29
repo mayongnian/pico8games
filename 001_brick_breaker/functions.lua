@@ -11,31 +11,51 @@ function move_with_btn(object,is_not_vertical,is_not_horizontal,is_not_screen_bo
     else
         speed = object.s
     end
+
+    -- 是否没碰到左边缘
+    not_touch_border_0 = object.x + (object.margin == nil and 0 or object.margin.left) - speed >= position_class.min 
+    -- 是否没碰到右边缘
+    not_touch_border_1 = object.x - (object.margin == nil and 0 or object.margin.right) + object.w - 2 + speed <= position_class.max
+    -- 是否没碰到上边缘
+    not_touch_border_2 = object.y + (object.margin == nil and 0 or object.margin.top) - speed >= position_class.min
+    -- 是否没碰到下边缘
+    not_touch_border_3 = object.y - (object.margin == nil and 0 or object.margin.bottom) + object.h - 2 + speed <= position_class.max
+
+    print(not_touch_border_0)
+    print(not_touch_border_1)
+    print(not_touch_border_2)
+    print(not_touch_border_3)
+
     -- 是否可以向左移动
     is_move_direcr_0 = 
         not is_not_horizontal 
         and btn(0) 
-        and (is_not_screen_border_detect or not is_not_screen_border_detect and object.x - speed >= position_class.min)
+        and (is_not_screen_border_detect or not is_not_screen_border_detect and not_touch_border_0)
     -- 是否可以向右移动
     is_move_direcr_1 = 
         not is_not_horizontal 
         and btn(1) 
-        and (is_not_screen_border_detect or not is_not_screen_border_detect and object.x + object.w + speed <= position_class.max)
+        and (is_not_screen_border_detect or not is_not_screen_border_detect and not_touch_border_1)
     -- 是否可以向上移动
     is_move_direcr_2 = 
         not is_not_vertical 
         and btn(2) 
-        and (is_not_screen_border_detect or not is_not_screen_border_detect and object.y - speed >= position_class.min)
+        and (is_not_screen_border_detect or not is_not_screen_border_detect and not_touch_border_2)
     -- 是否可以向下移动
     is_move_direcr_3 = 
         not is_not_vertical 
         and btn(3) 
-        and (is_not_screen_border_detect or not is_not_screen_border_detect and object.y + object.h + speed <= position_class.max)
+        and (is_not_screen_border_detect or not is_not_screen_border_detect and not_touch_border_3)
     -- 移动
     if is_move_direcr_0 then object.x -= speed end
     if is_move_direcr_1 then object.x += speed end
     if is_move_direcr_2 then object.y -= speed end
     if is_move_direcr_3 then object.y += speed end
+    -- 边缘位置修正
+    if not not_touch_border_0 then object.x = position_class.min end
+    if not not_touch_border_1 then object.x = position_class.max - object.w + 1 end
+    if not not_touch_border_2 then object.y = position_class.min end
+    if not not_touch_border_3 then object.y = position_class.max - object.h + 1 end
 end
 
 function move_with_vector(object)
@@ -69,6 +89,10 @@ function draw_shape(sprite,shape,is_not_solid)
             circfill(sprite.x, sprite.y, sprite.w, sprite.spr)
         end
     end
+end
+
+function draw_border()
+    rect(position_class.min, position_class.min, position_class.max, position_class.max, 1)
 end
 
 -- @param object sprite_class

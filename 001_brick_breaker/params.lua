@@ -16,12 +16,13 @@ local player_params = {
 player = sprite_class : new (
     position_class.mid - player_params.spr_w / 2, 
     position_class.max - player_params.spr_h, 
-    player_params.w, 
-    player_params.h,
-    2,
+    player_params.spr_w, 
+    player_params.spr_h,
+    1,
     nil, 
-    {1,1,1}
+    1
 )
+player.margin = margin_class:new(0,0,0,0)
 
 -- 2
 local ball_params = {

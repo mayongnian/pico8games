@@ -14,6 +14,15 @@ function vector_class:initialize(dx,dy)
     self.dy = dy
 end
 
+-- 【margin】
+local margin_class = class("margin_class")
+function margin_class:initialize(left,right,top,bottom)
+    self.left = left
+    self.right = right
+    self.top = top
+    self.bottom = bottom
+end
+
 -- 【位置类】
 -- 坐标（横坐标x、纵坐标y）
 local position_class = class("position_class")
