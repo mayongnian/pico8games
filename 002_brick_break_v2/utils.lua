@@ -1,4 +1,7 @@
 
+-- pico character set
+-- ⬅️➡️⬆️⬇️🅾️❎♥
+
 function global()
     const = {
         screen_min = 0,
@@ -96,8 +99,13 @@ function move_with_dpad(obj)
     end
 end
 
-function move_with_vector(obj)
+-- 根据对象的向量移动
+-- param 对象 obj
+-- param 加速倍率 speed_adjust_rate
+function move_with_vector(obj, speed_multi)
     -- 小球对象的移动
-    obj.x = obj.x + obj.vector.x * obj.speed
-    obj.y = obj.y + obj.vector.y * obj.speed
+    obj.x = obj.x + obj.vector.x 
+        * (speed_multi == nil and obj.speed or obj.speed * speed_multi)
+    obj.y = obj.y + obj.vector.y
+        * (speed_multi == nil and obj.speed or obj.speed * speed_multi)
 end
